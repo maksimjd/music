@@ -767,7 +767,7 @@
 </div>
 
 <script>
-  // ===== 0. ВСЕ DOM-ЭЛЕМЕНТЫ И ПЕРЕМЕННЫЕ В НАЧАЛЕ (БЕЗ ОШИБОК ИНИЦИАЛИЗАЦИИ) =====
+  // ===== 0. ВСЕ DOM-ЭЛЕМЕНТЫ И ПЕРЕМЕННЫЕ В НАЧАЛЕ =====
   const html = document.documentElement;
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabPanes = document.querySelectorAll('.tab-pane');
@@ -919,12 +919,12 @@
   };
 
   const musicStreams = {
-    lofi: 'https://ice1.somafm.com/groovesalad-128-mp3', 
-    ambient: 'https://ice1.somafm.com/dronezone-128-mp3', 
-    focus: 'https://ice1.somafm.com/deepspaceone-128-mp3',
-    beats: 'https://ice1.somafm.com/beatblender-128-mp3',
-    lush: 'https://ice1.somafm.com/lush-128-mp3',
-    defcon: 'https://ice1.somafm.com/defcon-128-mp3'
+    lofi:    'https://ice1.somafm.com/groovesalad-128-mp3',
+    ambient: 'https://ice1.somafm.com/dronezone-128-mp3',
+    focus:   'https://ice1.somafm.com/deepspaceone-128-mp3',
+    beats:   'https://ice1.somafm.com/beatblender-128-mp3',
+    lush:    'https://ice1.somafm.com/lush-128-mp3',
+    defcon:  'https://ice1.somafm.com/defcon-128-mp3'
   };
 
   let savedVol = parseInt(localStorage.getItem('focus_volume'), 10);
@@ -935,15 +935,184 @@
   let isMuted = false;
   let lastNonZeroVolume = masterVolume > 0 ? masterVolume : 0.4;
 
-  let currentAmbient = null;
-  let currentAmbientBtn = null;
-  let currentMusic = null;
-  let currentMusicBtn = null;
   let currentYtBtn = null;
 
   let audioCtx = null;
   let fallbackGain = null;
   let activeFallback = null;
+
+  // «Сторож» потока — детектирует зависание и переподключается
+  const STALL_CHECK_MS = 5000;   // как часто проверяем прогресс
+  const STALL_LIMIT    = 3;      // 3 * 5с = 15с без движения → переподключение
+  const MAX_RECONNECTS = 12;     // сколько раз пробуем переподключиться
+
+  function createStreamPlayer() {
+    return {
+      audio: null,
+      url: null,
+      btn: null,
+      label: '',
+      loop: false,
+      onFail: null,
+      maxReconnects: MAX_RECONNECTS,
+      healthTimer: null,
+      reconnectTimer: null,
+      lastTime: 0,
+      stallCount: 0,
+      attempts: 0,
+      reconnecting: false,
+
+      start(url, btn, label, opts) {
+        opts = opts || {};
+        this.stop();
+        this.url = url;
+        this.btn = btn || null;
+        this.label = label || '';
+        this.loop = !!opts.loop;
+        this.onFail = opts.onFail || null;
+        this.maxReconnects = (opts.maxReconnects != null) ? opts.maxReconnects : MAX_RECONNECTS;
+        this.attempts = 0;
+        if (this.btn) this.btn.classList.add('active');
+        this._create();
+      },
+
+      _create() {
+        const audio = new Audio();
+        audio.loop = this.loop;
+        audio.volume = getEffectiveVolume();
+        audio.preload = 'auto';
+        this.audio = audio;
+        this.lastTime = 0;
+        this.stallCount = 0;
+
+        const isCurrent = () => this.audio === audio;
+
+        audio.addEventListener('playing', () => {
+          if (!isCurrent()) return;
+          this.lastTime = audio.currentTime;
+          this.stallCount = 0;
+          this.attempts = 0;                 // успешно — сбрасываем счётчик
+          setStatus(`Играет: ${this.label}`, false, true);
+          this._startHealth();
+        });
+
+        audio.addEventListener('waiting', () => {
+          if (!isCurrent()) return;
+          setStatus(`Буферизация: ${this.label}`, false, true);
+        });
+
+        audio.addEventListener('ended', () => {
+          if (!isCurrent()) return;
+          this._reconnect('поток завершён');
+        });
+
+        audio.addEventListener('error', () => {
+          if (!isCurrent()) return;
+          this._reconnect('ошибка потока');
+        });
+
+        audio.src = this.url;
+        audio.play().catch(() => {
+          if (!isCurrent()) return;
+          this._reconnect('не удалось запустить');
+        });
+      },
+
+      _startHealth() {
+        this._stopHealth();
+        this.healthTimer = setInterval(() => {
+          const audio = this.audio;
+          if (!audio) return;
+
+          // Браузер сам поставил на паузу (обрыв, засыпание вкладки, мобильный фон)
+          if (audio.paused) {
+            this._reconnect('воспроизведение прервано');
+            return;
+          }
+
+          // Поток «застыл»: время не двигается
+          if (audio.currentTime > this.lastTime + 0.05) {
+            this.lastTime = audio.currentTime;
+            this.stallCount = 0;
+          } else {
+            this.stallCount++;
+            if (this.stallCount >= STALL_LIMIT) {
+              this._reconnect('поток завис');
+            }
+          }
+        }, STALL_CHECK_MS);
+      },
+
+      _stopHealth() {
+        if (this.healthTimer) {
+          clearInterval(this.healthTimer);
+          this.healthTimer = null;
+        }
+      },
+
+      _reconnect(reason) {
+        if (this.reconnecting || !this.url) return;
+        this.reconnecting = true;
+        this._stopHealth();
+
+        if (this.attempts >= this.maxReconnects) {
+          setStatus(`Поток недоступен: ${this.label}`, true, false);
+          this._fail();
+          return;
+        }
+
+        this.attempts++;
+        setStatus(`Переподключение ${this.attempts}/${this.maxReconnects}: ${this.label}`, false, true);
+
+        const old = this.audio;
+        this.audio = null;
+        if (old) {
+          try { old.pause(); old.removeAttribute('src'); old.load(); } catch (e) {}
+        }
+
+        const delay = Math.min(1000 * Math.pow(1.8, this.attempts - 1), 20000);
+        this.reconnectTimer = setTimeout(() => {
+          this.reconnectTimer = null;
+          this.reconnecting = false;
+          if (!this.url) return;
+          this._create();
+        }, delay);
+      },
+
+      _fail() {
+        this.reconnecting = false;
+        this._stopHealth();
+        const failCb = this.onFail;
+        this.url = null;
+        this.audio = null;
+        this.onFail = null;
+        if (failCb) failCb();
+        else if (this.btn) this.btn.classList.remove('active');
+      },
+
+      stop() {
+        this.url = null;
+        this.reconnecting = false;
+        this._stopHealth();
+        if (this.reconnectTimer) {
+          clearTimeout(this.reconnectTimer);
+          this.reconnectTimer = null;
+        }
+        const old = this.audio;
+        this.audio = null;
+        if (old) {
+          try { old.pause(); old.removeAttribute('src'); old.load(); } catch (e) {}
+        }
+        if (this.btn) { this.btn.classList.remove('active'); this.btn = null; }
+        this.onFail = null;
+        this.attempts = 0;
+        this.stallCount = 0;
+      }
+    };
+  }
+
+  const ambientPlayer = createStreamPlayer();
+  const musicPlayer   = createStreamPlayer();
 
   function setStatus(text = '', isError = false, isPlaying = false) {
     audioStatus.textContent = text;
@@ -962,8 +1131,8 @@
     muteBtn.textContent = effectivePct === 0 ? '🔇' : '🔊';
 
     const vol = getEffectiveVolume();
-    if (currentAmbient) currentAmbient.volume = vol;
-    if (currentMusic) currentMusic.volume = vol;
+    if (ambientPlayer.audio) ambientPlayer.audio.volume = vol;
+    if (musicPlayer.audio)   musicPlayer.audio.volume   = vol;
     if (audioCtx && fallbackGain) {
       fallbackGain.gain.setTargetAtTime(vol * 0.5, audioCtx.currentTime, 0.02);
     }
@@ -1035,30 +1204,12 @@
   }
 
   function stopAmbient() {
+    ambientPlayer.stop();
     if (activeFallback) { activeFallback.stop(); activeFallback = null; }
-    if (currentAmbient) {
-      const old = currentAmbient;
-      currentAmbient = null;
-      old.pause();
-      old.src = '';
-    }
-    if (currentAmbientBtn) {
-      currentAmbientBtn.classList.remove('active');
-      currentAmbientBtn = null;
-    }
   }
 
   function stopCurrentMusic() {
-    if (currentMusic) {
-      const old = currentMusic;
-      currentMusic = null;
-      old.pause();
-      old.src = '';
-    }
-    if (currentMusicBtn) {
-      currentMusicBtn.classList.remove('active');
-      currentMusicBtn = null;
-    }
+    musicPlayer.stop();
   }
 
   function stopYouTube() {
@@ -1086,60 +1237,33 @@
       stopAllAudio();
       if (wasActive) return;
 
-      const audio = new Audio(ambientUrls[type]);
-      audio.loop = true;
-      audio.volume = getEffectiveVolume();
-
-      currentAmbient = audio;
-      currentAmbientBtn = btn;
-      btn.classList.add('active');
-      setStatus('Загрузка звука...', false, true);
-
-      const fallbackOnce = () => {
-        if (currentAmbient !== audio) return;
-        currentAmbient = null;
-        startFallbackSynth(type);
-        setStatus(`Играет (резерв): ${btn.textContent.trim()}`, false, true);
-      };
-
-      audio.addEventListener('playing', () => {
-        if (currentAmbient === audio) setStatus(`Играет: ${btn.textContent.trim()}`, false, true);
+      ambientPlayer.start(ambientUrls[type], btn, btn.textContent.trim(), {
+        loop: true,
+        maxReconnects: 1,
+        onFail: () => {
+          startFallbackSynth(type);
+          setStatus(`Играет (резерв): ${btn.textContent.trim()}`, false, true);
+          btn.classList.add('active');
+        }
       });
-      audio.addEventListener('error', fallbackOnce);
-      audio.play().catch(fallbackOnce);
+      setStatus('Загрузка звука...', false, true);
     });
   });
 
-  // Радио
+  // Радио (с автопереподключением)
   musicBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const type = btn.dataset.music;
       const wasActive = btn.classList.contains('active');
       stopAllAudio();
       if (wasActive) return;
 
-      const audio = new Audio(musicStreams[type]);
-      audio.volume = getEffectiveVolume();
-      currentMusic = audio;
-      currentMusicBtn = btn;
-      btn.classList.add('active');
+      musicPlayer.start(
+        musicStreams[btn.dataset.music],
+        btn,
+        btn.textContent.trim(),
+        { maxReconnects: MAX_RECONNECTS }
+      );
       setStatus('Подключение к потоку...', false, true);
-
-      audio.addEventListener('playing', () => {
-        if (currentMusic === audio) setStatus(`Играет: ${btn.textContent.trim()}`, false, true);
-      });
-      audio.addEventListener('error', () => {
-        if (currentMusic === audio) {
-          stopCurrentMusic();
-          setStatus('Поток недоступен', true, false);
-        }
-      });
-      audio.play().catch(() => {
-        if (currentMusic === audio) {
-          stopCurrentMusic();
-          setStatus('Не удалось запустить поток', true, false);
-        }
-      });
     });
   });
 
