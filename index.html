@@ -3,679 +3,847 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Название во вкладке -->
 <title>Работа</title>
 
 <!-- Иконка во вкладке (Светящийся полумесяц) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a1a36'/%3E%3Ccircle cx='45' cy='55' r='30' fill='%23fffbe6'/%3E%3Ccircle cx='65' cy='35' r='30' fill='%231a1a36'/%3E%3C/svg%3E">
 
 <style>
-  /* ===== RESET & THEMES ===== */
+  /* ===== RESET & THEMES (БЕЗ ТЯЖЕЛЫХ РАЗМЫТИЙ И АНИМАЦИЙ) ===== */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
   :root[data-theme="dark"] {
-    --bg: #08080c;
+    --bg: #0b0c10;
+    --panel: #14161f;
+    --panel-alt: #1b1e2b;
     --text: #eef0f6;
-    --muted: #9a9aae;
+    --muted: #8e92a4;
     --accent: #00ffc8;
-    --accent-2: #7affff;
-    --accent-bg: rgba(0, 255, 200, 0.15);
-    --glass-bg: rgba(255, 255, 255, 0.045);
-    --glass-bg-strong: rgba(255, 255, 255, 0.075);
-    --glass-border: rgba(255, 255, 255, 0.09);
-    --glass-border-hi: rgba(0, 255, 200, 0.45);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-    --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    --blob-1: rgba(0, 255, 200, 0.5);
-    --blob-2: rgba(140, 100, 255, 0.45);
-    --blob-3: rgba(0, 160, 255, 0.4);
+    --accent-2: #5ce1e6;
+    --accent-bg: rgba(0, 255, 200, 0.14);
+    --border: #262a3b;
+    --border-hi: rgba(0, 255, 200, 0.45);
   }
 
   :root[data-theme="light"] {
-    --bg: #f0f4f8;
-    --text: #1a1a22;
-    --muted: #5a5a6e;
-    --accent: #00c89b;
-    --accent-2: #0099ff;
-    --accent-bg: rgba(0, 200, 155, 0.15);
-    --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-bg-strong: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --glass-border-hi: rgba(0, 200, 155, 0.6);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    --blob-1: rgba(0, 255, 200, 0.25);
-    --blob-2: rgba(140, 100, 255, 0.2);
-    --blob-3: rgba(0, 160, 255, 0.2);
+    --bg: #eef2f6;
+    --panel: #ffffff;
+    --panel-alt: #f5f7fa;
+    --text: #1a1d26;
+    --muted: #646b7d;
+    --accent: #00a882;
+    --accent-2: #0088cc;
+    --accent-bg: rgba(0, 168, 130, 0.12);
+    --border: #dce1eb;
+    --border-hi: rgba(0, 168, 130, 0.5);
   }
 
   /* Акцентные палитры */
   :root[data-accent="violet"] {
     --accent: #a78bfa;
     --accent-2: #c4b5fd;
-    --accent-bg: rgba(167, 139, 250, 0.16);
-    --glass-border-hi: rgba(167, 139, 250, 0.5);
+    --accent-bg: rgba(167, 139, 250, 0.15);
+    --border-hi: rgba(167, 139, 250, 0.5);
   }
   :root[data-accent="blue"] {
     --accent: #38bdf8;
     --accent-2: #7dd3fc;
-    --accent-bg: rgba(56, 189, 248, 0.16);
-    --glass-border-hi: rgba(56, 189, 248, 0.5);
+    --accent-bg: rgba(56, 189, 248, 0.15);
+    --border-hi: rgba(56, 189, 248, 0.5);
   }
   :root[data-accent="amber"] {
     --accent: #fbbf24;
     --accent-2: #fde68a;
-    --accent-bg: rgba(251, 191, 36, 0.16);
-    --glass-border-hi: rgba(251, 191, 36, 0.5);
+    --accent-bg: rgba(251, 191, 36, 0.15);
+    --border-hi: rgba(251, 191, 36, 0.5);
   }
   :root[data-theme="light"][data-accent="violet"] {
     --accent: #7c3aed;
     --accent-2: #a855f7;
-    --accent-bg: rgba(124, 58, 237, 0.14);
+    --accent-bg: rgba(124, 58, 237, 0.12);
   }
   :root[data-theme="light"][data-accent="blue"] {
     --accent: #0284c7;
     --accent-2: #0ea5e9;
-    --accent-bg: rgba(2, 132, 199, 0.14);
+    --accent-bg: rgba(2, 132, 199, 0.12);
   }
   :root[data-theme="light"][data-accent="amber"] {
     --accent: #d97706;
     --accent-2: #f59e0b;
-    --accent-bg: rgba(217, 119, 6, 0.14);
+    --accent-bg: rgba(217, 119, 6, 0.12);
   }
 
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
-    transition: background 0.4s ease, color 0.4s ease;
+    padding: 16px;
   }
   ::selection { background: var(--accent); color: #000; }
 
-  /* ===== BACKGROUND ===== */
-  .bg-layer {
-    position: fixed; inset: 0; z-index: -3;
-    background:
-      radial-gradient(ellipse 70% 50% at 15% 10%, var(--blob-1), transparent 60%),
-      radial-gradient(ellipse 60% 50% at 85% 20%, var(--blob-2), transparent 60%),
-      radial-gradient(ellipse 80% 60% at 50% 100%, var(--blob-3), transparent 60%),
-      var(--bg);
-    transition: background 0.4s ease;
-  }
-  .grid-bg {
-    position: fixed; inset: 0; z-index: -2;
-    background-image:
-      linear-gradient(var(--glass-border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 100%);
-    opacity: 0.5;
-  }
-
-  /* ===== TOP DISCLAIMER ===== */
-  .disclaimer {
+  /* ===== TOP BAR ===== */
+  .top-bar {
     width: 100%;
-    max-width: 1000px;
-    margin-bottom: 20px;
-    padding: 12px 20px;
-    background: rgba(0, 255, 200, 0.08);
-    border: 1px solid var(--accent);
-    border-radius: 14px;
-    text-align: center;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 4px 20px rgba(0, 255, 200, 0.1);
-    position: relative;
-    z-index: 10;
+    max-width: 1020px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
   }
-  .disclaimer strong { color: var(--accent); }
 
-  /* ===== TOP CONTROLS (ТЕМА, ПОЛНЫЙ ЭКРАН, ЦВЕТА) ===== */
+  .disclaimer {
+    flex: 1;
+    min-width: 260px;
+    padding: 9px 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .disclaimer strong { color: var(--text); }
+
   .top-controls {
-    position: fixed; top: 20px; right: 20px;
     display: flex; align-items: center; gap: 8px;
-    z-index: 100;
   }
   .accent-picker {
     display: flex; align-items: center; gap: 6px;
-    padding: 0 10px; height: 44px;
-    background: var(--glass-bg-strong); border: 1px solid var(--glass-border);
-    border-radius: 12px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding: 0 10px; height: 38px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px;
   }
   .accent-dot {
-    width: 16px; height: 16px; border-radius: 50%;
+    width: 15px; height: 15px; border-radius: 50%;
     border: 2px solid transparent; cursor: pointer;
   }
   .accent-dot.active { border-color: var(--text); }
   .icon-btn {
-    width: 44px; height: 44px;
-    background: var(--glass-bg-strong); border: 1px solid var(--glass-border);
-    border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 1.15rem; color: var(--text); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    width: 38px; height: 38px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem; color: var(--text);
   }
   .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ===== ЖИВЫЕ ЧАСЫ И ПРИВЕТСТВИЕ ===== */
-  .clock-bar {
-    grid-column: 1 / -1;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 24px; border-radius: 18px;
-  }
-  .clock-greeting { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-  .clock-date { font-size: 0.85rem; color: var(--muted); margin-left: 8px; font-weight: 500; }
-  .clock-time {
-    font-size: 1.25rem; font-weight: 800; color: var(--accent);
-    font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
-  }
-
-  /* ===== LAYOUT ===== */
-  .app {
+  /* ===== MAIN CONTAINER ===== */
+  .wrapper {
     width: 100%;
-    max-width: 1000px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ===== GLASS PANEL ===== */
-  .glass {
-    background: var(--glass-bg-strong);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    box-shadow: var(--glass-shadow), var(--glass-highlight);
-    border-radius: 24px;
-    padding: 28px;
-    transition: all 0.3s ease;
-  }
-
-  /* ===== TIMER ===== */
-  .timer-section { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .timer-header {
-    font-size: 1rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
-    letter-spacing: 0.1em; margin-bottom: 12px;
-  }
-  .timer-header.focus { color: var(--accent); }
-  .timer-header.break { color: #ffaa00; }
-
-  /* Пресеты времени */
-  .presets {
+    max-width: 1020px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    width: 100%;
+    flex-direction: column;
+    gap: 14px;
   }
-  .preset-btn {
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  /* ===== CLOCK & TABS HEADER ===== */
+  .header-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+  .clock-row {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .clock-greeting { font-size: 1rem; font-weight: 700; }
+  .clock-date { font-size: 0.85rem; color: var(--muted); margin-left: 6px; }
+  .clock-time {
+    font-size: 1.3rem; font-weight: 800; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Навигация по вкладкам */
+  .tabs-nav {
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 9px 16px;
+    border-radius: 10px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
     color: var(--muted);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     font-family: inherit;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .preset-btn:hover { background: var(--glass-bg-strong); color: var(--text); }
-  .preset-btn.active {
+  .tab-btn:hover { color: var(--text); border-color: var(--muted); }
+  .tab-btn.active {
     background: var(--accent-bg);
     border-color: var(--accent);
     color: var(--accent);
   }
+  .tab-badge {
+    font-size: 0.72rem;
+    padding: 1px 6px;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 800;
+    display: none;
+  }
+  .tab-badge.visible { display: inline-block; }
+
+  /* Контент вкладок */
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ===== ВКЛАДКА 1: ФОКУС И ЗАДАЧИ ===== */
+  .focus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 16px;
+  }
+
+  .timer-section { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .timer-header {
+    font-size: 0.9rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 12px;
+  }
+  .timer-header.focus { color: var(--accent); }
+  .timer-header.break { color: #ffaa00; }
+
+  .presets {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 18px;
+  }
+  .preset-btn {
+    padding: 6px 11px; border-radius: 8px;
+    background: var(--panel-alt); border: 1px solid var(--border);
+    color: var(--muted); font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .preset-btn:hover { color: var(--text); }
+  .preset-btn.active {
+    background: var(--accent-bg); border-color: var(--accent); color: var(--accent);
+  }
 
   .timer-ring {
-    position: relative; width: 240px; height: 240px; margin-bottom: 24px;
+    position: relative; width: 210px; height: 210px; margin-bottom: 20px;
   }
   .timer-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
   .timer-ring circle {
     fill: none; stroke-width: 6; stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear, stroke 0.4s;
   }
-  .ring-bg { stroke: var(--glass-border); }
+  .ring-bg { stroke: var(--border); }
   .ring-progress { stroke: var(--accent); stroke-dasharray: 722; stroke-dashoffset: 0; }
   .timer-section.break .ring-progress { stroke: #ffaa00; }
 
   .timer-display {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 3.4rem; font-weight: 800; letter-spacing: -0.02em;
+    font-size: 3rem; font-weight: 800;
     font-variant-numeric: tabular-nums;
   }
 
-  .timer-controls { display: flex; gap: 12px; }
+  .timer-controls { display: flex; gap: 10px; }
   .btn {
-    padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 0.95rem;
-    cursor: pointer; border: 1px solid var(--glass-border);
-    background: var(--glass-bg); color: var(--text);
+    padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--panel-alt); color: var(--text);
     font-family: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
-  .btn:hover { background: var(--glass-bg-strong); border-color: var(--accent); }
+  .btn:hover { border-color: var(--accent); }
   .btn-primary {
-    background: var(--accent); border-color: var(--accent); color: #00201a;
-    box-shadow: 0 4px 15px var(--accent-bg);
+    background: var(--accent); border-color: var(--accent); color: #051b14;
   }
   .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
-  
-  /* Стили для неактивных кнопок таймера */
   .btn:disabled, .btn-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    filter: grayscale(100%);
-    box-shadow: none;
+    opacity: 0.45; cursor: not-allowed;
   }
-  .btn-primary:disabled:hover { background: var(--accent); border-color: var(--accent); }
 
-  /* Статистика дня и подсказка горячих клавиш */
   .stats-pill {
-    margin-top: 16px;
-    padding: 6px 14px;
-    border-radius: 100px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    font-size: 0.8rem;
-    color: var(--muted);
-    font-weight: 600;
+    margin-top: 14px; padding: 6px 12px; border-radius: 8px;
+    background: var(--panel-alt); border: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--muted); font-weight: 600;
   }
   .stats-pill strong { color: var(--accent); }
   .hotkey-hint {
-    margin-top: 8px;
-    font-size: 0.72rem;
-    color: var(--muted);
-    opacity: 0.75;
-    text-align: center;
+    margin-top: 8px; font-size: 0.72rem; color: var(--muted); text-align: center;
   }
 
-  /* ===== TASKS ===== */
+  /* Задачи */
   .tasks-section { display: flex; flex-direction: column; }
   .tasks-header {
     display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px; gap: 12px;
+    margin-bottom: 14px; gap: 12px;
   }
-  .tasks-header h2 { font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+  .tasks-header h2 { font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
   .task-counter {
     font-size: 0.78rem; font-weight: 700; color: var(--accent);
-    background: var(--accent-bg); border: 1px solid var(--glass-border-hi);
-    padding: 2px 8px; border-radius: 100px;
+    background: var(--accent-bg); border: 1px solid var(--border-hi);
+    padding: 2px 8px; border-radius: 8px;
   }
   .clear-done-btn {
     background: none; border: none; color: var(--muted);
-    font-size: 0.8rem; font-weight: 600; cursor: pointer;
-    font-family: inherit; transition: color 0.2s; display: none;
+    font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit; display: none;
   }
   .clear-done-btn:hover { color: #ff6b6b; }
   .clear-done-btn.visible { display: inline-block; }
 
-  .task-form { display: flex; gap: 8px; margin-bottom: 16px; }
-  .task-input {
-    flex: 1; padding: 12px 14px;
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.95rem;
-    outline: none; transition: border-color 0.2s;
+  .task-form { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .input-field {
+    padding: 10px 12px;
+    background: var(--panel-alt); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.9rem;
+    outline: none;
   }
-  .task-input:focus { border-color: var(--accent); }
-  .task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto; padding-right: 4px; }
-  .task-list::-webkit-scrollbar { width: 4px; }
-  .task-list::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 4px; }
+  .input-field:focus { border-color: var(--accent); }
+  .task-input { flex: 1; min-width: 150px; }
+  .task-date-input { width: 140px; color: var(--muted); font-size: 0.82rem; cursor: pointer; }
+
+  .task-list {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    max-height: 310px; overflow-y: auto; padding-right: 4px;
+  }
+  .task-list::-webkit-scrollbar { width: 5px; }
+  .task-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   
   .task-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 14px; background: var(--glass-bg);
-    border: 1px solid var(--glass-border); border-radius: 10px;
-    transition: all 0.2s;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; background: var(--panel-alt);
+    border: 1px solid var(--border); border-radius: 10px;
   }
-  .task-item:hover { background: var(--glass-bg-strong); }
   .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
   
   .task-check {
-    width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--glass-border);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; flex-shrink: 0;
+    width: 19px; height: 19px; border-radius: 50%; border: 2px solid var(--muted);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .task-item.done .task-check { background: var(--accent); border-color: var(--accent); }
   .task-check::after {
-    content: '✓'; color: #000; font-size: 12px; font-weight: bold;
-    opacity: 0; transition: opacity 0.2s;
+    content: '✓'; color: #000; font-size: 11px; font-weight: bold; display: none;
   }
-  .task-item.done .task-check::after { opacity: 1; }
+  .task-item.done .task-check::after { display: block; }
   
-  .task-text { flex: 1; font-size: 0.95rem; word-break: break-word; cursor: text; }
+  .task-text { flex: 1; font-size: 0.92rem; word-break: break-word; cursor: text; }
   .task-edit-input {
-    flex: 1; padding: 4px 8px;
-    background: var(--bg); border: 1px solid var(--accent);
-    border-radius: 6px; color: var(--text); font-family: inherit; font-size: 0.95rem;
-    outline: none;
+    flex: 1; padding: 4px 8px; background: var(--bg); border: 1px solid var(--accent);
+    border-radius: 6px; color: var(--text); font-family: inherit; font-size: 0.92rem; outline: none;
+  }
+  .task-date {
+    flex-shrink: 0; padding: 2px 8px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--muted); font-family: inherit; font-size: 0.72rem; font-weight: 600; cursor: pointer;
+  }
+  .task-date.today { background: var(--accent-bg); border-color: var(--border-hi); color: var(--accent); }
+  .task-date.overdue { background: rgba(255, 107, 107, 0.12); border-color: rgba(255, 107, 107, 0.4); color: #ff6b6b; }
+  .task-date-edit {
+    max-width: 135px; padding: 2px 6px; background: var(--bg); border: 1px solid var(--accent);
+    border-radius: 6px; color: var(--text); font-size: 0.78rem;
   }
   .task-delete {
-    background: none; border: none; color: var(--muted); font-size: 1.2rem;
-    cursor: pointer; padding: 0 4px; transition: color 0.2s; line-height: 1;
+    background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; padding: 0 4px;
   }
   .task-delete:hover { color: #ff6b6b; }
-  .empty-tasks { color: var(--muted); font-size: 0.9rem; text-align: center; margin-top: 16px; }
+  .empty-tasks { color: var(--muted); font-size: 0.88rem; text-align: center; margin-top: 24px; }
 
-  /* Быстрые заметки */
-  .notes-area {
-    margin-top: 16px;
-    width: 100%;
-    min-height: 78px;
-    max-height: 150px;
-    resize: vertical;
-    padding: 10px 12px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.85rem;
-    line-height: 1.45;
-    outline: none;
+  /* ===== ВКЛАДКА 2: ЗВУК И МУЗЫКА ===== */
+  .audio-layout { display: flex; flex-direction: column; gap: 16px; position: relative; }
+  .audio-layout.locked .audio-lockable { opacity: 0.35; pointer-events: none; }
+  .lock-banner {
+    display: none;
+    padding: 10px 16px; border-radius: 10px;
+    background: var(--accent-bg); border: 1px solid var(--accent);
+    color: var(--accent); font-weight: 600; font-size: 0.9rem; text-align: center;
   }
-  .notes-area:focus { border-color: var(--accent); }
-  .notes-area::placeholder { color: var(--muted); opacity: 0.8; }
+  .audio-layout.locked .lock-banner { display: block; }
 
-  /* ===== AUDIO PANELS ===== */
-  .audio-panel {
-    grid-column: 1 / -1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    position: relative;
-    transition: all 0.3s ease;
+  .audio-block {
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
   }
-  
-  /* Блокировка аудио, пока таймер не запущен */
-  .audio-panel.locked .audio-group {
-    opacity: 0.4;
-    pointer-events: none;
-    filter: grayscale(100%);
-  }
-  .audio-panel.locked::after {
-    content: '⏱ Запустите таймер, чтобы включить звук';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--glass-bg-strong);
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 0.95rem;
-    white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    z-index: 10;
-  }
-  .audio-panel.locked .volume-control,
-  .audio-panel.locked .sleep-row {
-    opacity: 0.4;
-    pointer-events: none;
-  }
-
   .audio-group-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 8px; padding: 0 4px;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
   }
   .audio-group-title {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700;
   }
-  .audio-status {
-    font-size: 0.78rem;
-    color: var(--accent);
-    font-weight: 600;
-    min-height: 1em;
-  }
+  .audio-status { font-size: 0.82rem; color: var(--accent); font-weight: 600; }
   .audio-status.error { color: #ff6b6b; }
 
-  .audio-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  .audio-row { display: flex; flex-wrap: wrap; gap: 10px; }
   .audio-btn {
     display: flex; align-items: center; gap: 8px;
-    padding: 10px 20px; border-radius: 100px;
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    color: var(--text); font-size: 0.9rem; font-weight: 600;
+    padding: 9px 16px; border-radius: 10px;
+    background: var(--panel); border: 1px solid var(--border);
+    color: var(--text); font-size: 0.88rem; font-weight: 600;
     cursor: pointer; font-family: inherit;
   }
-  .audio-btn:hover { background: var(--glass-bg-strong); }
+  .audio-btn:hover { border-color: var(--muted); }
   .audio-btn.active {
     background: var(--accent-bg); border-color: var(--accent); color: var(--accent);
-    box-shadow: 0 0 15px var(--accent-bg);
   }
 
-  /* ===== VOLUME SLIDER ===== */
-  .volume-control {
+  /* YouTube Секция */
+  .yt-custom-form { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .yt-custom-form input { flex: 1; min-width: 200px; }
+  .yt-player-box {
+    margin-top: 14px;
+    display: none;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+  }
+  .yt-player-box.active { display: block; }
+  .yt-player-box iframe {
+    width: 100%;
+    height: 190px;
+    border: none;
+    display: block;
+  }
+  .yt-fallback-bar {
+    padding: 8px 12px;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-top: 8px;
-    padding: 0 4px;
-  }
-  .mute-btn {
-    background: none; border: none; font-size: 1.2rem; cursor: pointer;
-    padding: 2px 4px; line-height: 1;
-  }
-  .volume-slider {
-    flex: 1;
-    -webkit-appearance: none;
-    height: 4px;
-    background: var(--glass-border);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-  }
-  .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    box-shadow: 0 0 10px var(--accent-bg);
-  }
-  .volume-slider::-moz-range-thumb {
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: none;
-  }
-  .volume-value {
-    min-width: 38px; text-align: right; font-size: 0.8rem;
-    color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    flex-wrap: wrap;
   }
 
-  /* Таймер сна для звука */
+  /* Громкость и таймер сна */
+  .volume-control { display: flex; align-items: center; gap: 12px; }
+  .mute-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+  .volume-slider {
+    flex: 1; -webkit-appearance: none; height: 5px; background: var(--border); border-radius: 3px; cursor: pointer;
+  }
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer;
+  }
+  .volume-value { min-width: 40px; text-align: right; font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+
   .sleep-row {
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 10px;
-    padding: 4px 4px 0;
-    border-top: 1px solid var(--glass-border);
-    padding-top: 12px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
   }
-  .sleep-label { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
-  .sleep-label strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-  .sleep-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sleep-label { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+  .sleep-label strong { color: var(--accent); }
+  .sleep-btns { display: flex; gap: 6px; }
   .sleep-btn {
-    padding: 4px 10px; border-radius: 8px;
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    color: var(--muted); font-size: 0.75rem; font-weight: 600;
-    cursor: pointer; font-family: inherit;
+    padding: 5px 10px; border-radius: 8px; background: var(--panel); border: 1px solid var(--border);
+    color: var(--muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit;
   }
-  .sleep-btn:hover { background: var(--glass-bg-strong); color: var(--text); }
-  .sleep-btn.active {
-    background: var(--accent-bg); border-color: var(--accent); color: var(--accent);
+  .sleep-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+
+  /* ===== ВКЛАДКА 3: ЗАМЕТКИ ===== */
+  .notes-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+  }
+  .notes-meta { font-size: 0.8rem; color: var(--muted); }
+  .full-notes-area {
+    width: 100%;
+    min-height: 360px;
+    resize: vertical;
+    padding: 14px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    outline: none;
+  }
+  .full-notes-area:focus { border-color: var(--accent); }
+
+  /* ===== ВКЛАДКА 4: ИНСТРУМЕНТЫ ===== */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .tool-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .tool-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 14px; }
+
+  .calc-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+  .calc-row label { font-size: 0.85rem; color: var(--muted); flex: 1; }
+  .calc-row input { width: 120px; text-align: right; }
+  .calc-result {
+    padding: 14px; border-radius: 10px; background: var(--panel-alt); border: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+  }
+  .calc-result span { font-size: 0.88rem; color: var(--muted); }
+  .calc-result strong { font-size: 1.35rem; color: var(--accent); }
+
+  .bookmarks-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .bookmark-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border-radius: 8px;
+    background: var(--panel-alt); border: 1px solid var(--border);
+    color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 600;
+  }
+  .bookmark-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .bookmark-del {
+    background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; line-height: 1;
+  }
+  .bookmark-del:hover { color: #ff6b6b; }
+  .bookmark-form { display: flex; gap: 8px; flex-wrap: wrap; }
+  .bookmark-form input { flex: 1; min-width: 120px; }
+
+  .backup-bar {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    padding-top: 16px; border-top: 1px solid var(--border);
   }
 
   /* ===== MOBILE ===== */
   @media (max-width: 768px) {
-    .app { grid-template-columns: 1fr; }
-    .top-controls { position: static; margin-bottom: 12px; justify-content: flex-end; width: 100%; }
-    .clock-bar { padding: 12px 16px; }
-    .timer-ring { width: 200px; height: 200px; }
-    .timer-display { font-size: 3rem; }
-    .glass { padding: 20px; }
-    .audio-panel { padding: 16px; }
-    .audio-btn { padding: 8px 14px; font-size: 0.8rem; }
-    .audio-panel.locked::after { font-size: 0.8rem; padding: 8px 16px; white-space: normal; width: 80%; text-align: center; }
-    .preset-btn { padding: 4px 8px; font-size: 0.75rem; }
-    .disclaimer { font-size: 0.75rem; padding: 10px 14px; }
+    .focus-grid, .tools-grid { grid-template-columns: 1fr; }
+    .timer-ring { width: 185px; height: 185px; }
+    .timer-display { font-size: 2.6rem; }
     .hotkey-hint { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-layer"></div>
-<div class="grid-bg"></div>
+<div class="top-bar">
+  <div class="disclaimer">
+    ℹ️ <strong>Инфо:</strong> Аудиопотоки работают через открытые сервисы (Google Sounds, SomaFM, YouTube).
+  </div>
 
-<!-- ДИСКЛЕЙМЕР СВЕРХУ -->
-<div class="disclaimer">
-  ℹ️ <strong>Внимание:</strong> Музыка и звуки природы предоставляются сторонними открытыми сервисами «как есть» (Google Sounds, SomaFM). Возможны кратковременные перебои в работе потоков.
+  <div class="top-controls">
+    <div class="accent-picker" id="accentPicker" title="Акцентный цвет">
+      <button class="accent-dot active" data-accent="cyan" style="background: #00ffc8;" title="Бирюзовый"></button>
+      <button class="accent-dot" data-accent="violet" style="background: #a78bfa;" title="Фиолетовый"></button>
+      <button class="accent-dot" data-accent="blue" style="background: #38bdf8;" title="Синий"></button>
+      <button class="accent-dot" data-accent="amber" style="background: #fbbf24;" title="Янтарный"></button>
+    </div>
+    <button class="icon-btn" id="fullscreenBtn" title="Полноэкранный режим">⛶</button>
+    <button class="icon-btn" id="themeToggle" title="Сменить тему">🌙</button>
+  </div>
 </div>
 
-<div class="top-controls">
-  <div class="accent-picker" id="accentPicker" title="Акцентный цвет">
-    <button class="accent-dot active" data-accent="cyan" style="background: #00ffc8;" title="Бирюзовый"></button>
-    <button class="accent-dot" data-accent="violet" style="background: #a78bfa;" title="Фиолетовый"></button>
-    <button class="accent-dot" data-accent="blue" style="background: #38bdf8;" title="Синий"></button>
-    <button class="accent-dot" data-accent="amber" style="background: #fbbf24;" title="Янтарный"></button>
-  </div>
-  <button class="icon-btn" id="fullscreenBtn" title="Полноэкранный режим">⛶</button>
-  <button class="icon-btn" id="themeToggle" title="Сменить тему">🌙</button>
-</div>
+<div class="wrapper">
 
-<div class="app">
-
-  <!-- ЖИВЫЕ ЧАСЫ И ПРИВЕТСТВИЕ -->
-  <div class="glass clock-bar">
-    <div>
-      <span class="clock-greeting" id="clockGreeting">Добрый день</span>
-      <span class="clock-date" id="clockDate"></span>
-    </div>
-    <div class="clock-time" id="clockTime">00:00:00</div>
-  </div>
-  
-  <!-- ЛЕВАЯ ПАНЕЛЬ: ТАЙМЕР -->
-  <div class="glass timer-section" id="timerSection">
-    <div class="timer-header focus" id="timerHeader">Режим без таймера</div>
-    
-    <!-- Пресеты времени -->
-    <div class="presets" id="presets">
-      <button class="preset-btn" data-time="1800">30 мин</button>
-      <button class="preset-btn" data-time="3600">1 час</button>
-      <button class="preset-btn" data-time="7200">2 часа</button>
-      <button class="preset-btn" data-time="10800">3 часа</button>
-      <button class="preset-btn active" data-time="0">Без таймера</button>
+  <!-- ШАПКА: ЧАСЫ + ВКЛАДКИ -->
+  <div class="card header-panel">
+    <div class="clock-row">
+      <div>
+        <span class="clock-greeting" id="clockGreeting">Добрый день</span>
+        <span class="clock-date" id="clockDate"></span>
+      </div>
+      <div class="clock-time" id="clockTime">00:00:00</div>
     </div>
 
-    <div class="timer-ring">
-      <svg viewBox="0 0 260 260">
-        <circle class="ring-bg" cx="130" cy="130" r="115"></circle>
-        <circle class="ring-progress" cx="130" cy="130" r="115" id="ringProgress"></circle>
-      </svg>
-      <div class="timer-display" id="timerDisplay">∞</div>
-    </div>
-
-    <div class="timer-controls">
-      <button class="btn btn-primary" id="startBtn" disabled>Старт</button>
-      <button class="btn" id="resetBtn" disabled>Сброс</button>
-    </div>
-
-    <div class="stats-pill" id="statsPill">🍅 Сессий сегодня: <strong>0</strong> • <strong>0 мин</strong></div>
-    <div class="hotkey-hint">Space — старт/пауза • R — сброс • M — звук</div>
+    <nav class="tabs-nav" id="tabsNav">
+      <button class="tab-btn active" data-tab="focus" type="button">⏱ Фокус и Задачи</button>
+      <button class="tab-btn" data-tab="audio" type="button">🎧 Звук и Музыка <span class="tab-badge" id="audioPlayingBadge">ON</span></button>
+      <button class="tab-btn" data-tab="notes" type="button">📝 Заметки</button>
+      <button class="tab-btn" data-tab="tools" type="button">🧰 Инструменты</button>
+    </nav>
   </div>
 
-  <!-- ПРАВАЯ ПАНЕЛЬ: ЗАДАЧИ И ЗАМЕТКИ -->
-  <div class="glass tasks-section">
-    <div class="tasks-header">
-      <h2>Мои задачи <span class="task-counter" id="taskCounter">0</span></h2>
-      <button class="clear-done-btn" id="clearDoneBtn" type="button">Очистить готовые</button>
+  <!-- ВКЛАДКА 1: ФОКУС И ЗАДАЧИ -->
+  <div class="tab-pane active" id="tab-focus">
+    <div class="focus-grid">
+      <!-- ТАЙМЕР -->
+      <div class="card timer-section" id="timerSection">
+        <div class="timer-header focus" id="timerHeader">Режим без таймера</div>
+        
+        <div class="presets" id="presets">
+          <button class="preset-btn" data-time="1800" type="button">30 мин</button>
+          <button class="preset-btn" data-time="3600" type="button">1 час</button>
+          <button class="preset-btn" data-time="7200" type="button">2 часа</button>
+          <button class="preset-btn" data-time="10800" type="button">3 часа</button>
+          <button class="preset-btn active" data-time="0" type="button">Без таймера</button>
+        </div>
+
+        <div class="timer-ring">
+          <svg viewBox="0 0 260 260">
+            <circle class="ring-bg" cx="130" cy="130" r="115"></circle>
+            <circle class="ring-progress" cx="130" cy="130" r="115" id="ringProgress"></circle>
+          </svg>
+          <div class="timer-display" id="timerDisplay">∞</div>
+        </div>
+
+        <div class="timer-controls">
+          <button class="btn btn-primary" id="startBtn" type="button" disabled>Старт</button>
+          <button class="btn" id="resetBtn" type="button" disabled>Сброс</button>
+        </div>
+
+        <div class="stats-pill" id="statsPill">🍅 Сессий сегодня: <strong>0</strong> • <strong>0 мин</strong></div>
+        <div class="hotkey-hint">Space — старт/пауза • R — сброс • M — звук</div>
+      </div>
+
+      <!-- ЗАДАЧИ -->
+      <div class="card tasks-section">
+        <div class="tasks-header">
+          <h2>Мои задачи <span class="task-counter" id="taskCounter">0</span></h2>
+          <button class="clear-done-btn" id="clearDoneBtn" type="button">Очистить готовые</button>
+        </div>
+        <form class="task-form" id="taskForm">
+          <input type="text" class="input-field task-input" id="taskInput" placeholder="Что нужно сделать?" autocomplete="off">
+          <input type="date" class="input-field task-date-input" id="taskDate" title="Срок выполнения">
+          <button type="submit" class="btn btn-primary" style="padding: 10px 16px;">+</button>
+        </form>
+        <ul class="task-list" id="taskList"></ul>
+        <div class="empty-tasks" id="emptyTasks">Пока нет задач. Добавь первую!</div>
+      </div>
     </div>
-    <form class="task-form" id="taskForm">
-      <input type="text" class="task-input" id="taskInput" placeholder="Что нужно сделать?" autocomplete="off">
-      <button type="submit" class="btn btn-primary" style="padding: 12px 16px;">+</button>
-    </form>
-    <ul class="task-list" id="taskList"></ul>
-    <div class="empty-tasks" id="emptyTasks">Пока нет задач. Добавь первую!</div>
-    <textarea class="notes-area" id="notesArea" placeholder="Быстрые заметки и черновик (сохраняются автоматически)..."></textarea>
   </div>
 
-  <!-- НИЖНЯЯ ПАНЕЛЬ: АУДИО (Выбор одного источника) -->
-  <div class="glass audio-panel" id="audioPanel">
-    <div class="audio-group">
-      <div class="audio-group-header">
-        <div class="audio-group-title">🌧 Эмбиент (можно выбрать одно)</div>
-        <div class="audio-status" id="audioStatus"></div>
+  <!-- ВКЛАДКА 2: ЗВУК И МУЗЫКА -->
+  <div class="tab-pane" id="tab-audio">
+    <div class="card audio-layout" id="audioPanel">
+      <div class="lock-banner">⏱ Запустите таймер на вкладке «Фокус» (или выберите режим «Без таймера»), чтобы включить звук</div>
+
+      <!-- БЛОК 1: ЭМБИЕНТ -->
+      <div class="audio-block audio-lockable">
+        <div class="audio-group-header">
+          <div class="audio-group-title">🌧 Звуки природы</div>
+          <div class="audio-status" id="audioStatus"></div>
+        </div>
+        <div class="audio-row">
+          <button class="audio-btn" data-sound="rain" type="button">🌧 Дождь</button>
+          <button class="audio-btn" data-sound="ocean" type="button">🌊 Океан</button>
+          <button class="audio-btn" data-sound="wind" type="button">💨 Ветер</button>
+          <button class="audio-btn" data-sound="fire" type="button">🔥 Костёр</button>
+        </div>
       </div>
-      <div class="audio-row">
-        <button class="audio-btn" data-sound="rain">🌧 Дождь</button>
-        <button class="audio-btn" data-sound="ocean">🌊 Океан</button>
-        <button class="audio-btn" data-sound="wind">💨 Ветер</button>
-        <button class="audio-btn" data-sound="fire">🔥 Костёр</button>
+
+      <!-- БЛОК 2: РАДИОПОТОКИ -->
+      <div class="audio-block audio-lockable">
+        <div class="audio-group-header">
+          <div class="audio-group-title">📻 Интернет-радио (SomaFM)</div>
+        </div>
+        <div class="audio-row">
+          <button class="audio-btn" data-music="lofi" type="button">☕ Groove Salad (Chill)</button>
+          <button class="audio-btn" data-music="ambient" type="button">🌌 Drone Zone (Ambient)</button>
+          <button class="audio-btn" data-music="focus" type="button">🧠 Deep Space (Focus)</button>
+          <button class="audio-btn" data-music="beats" type="button">🎧 Beat Blender (Beats)</button>
+          <button class="audio-btn" data-music="lush" type="button">🌿 Lush (Мягкий вокал)</button>
+          <button class="audio-btn" data-music="defcon" type="button">💻 DEF CON (Код/Техно)</button>
+        </div>
+      </div>
+
+      <!-- БЛОК 3: YOUTUBE ЭФИРЫ ДЛЯ РАБОТЫ -->
+      <div class="audio-block audio-lockable">
+        <div class="audio-group-header">
+          <div class="audio-group-title">▶️ YouTube — Атмосфера и музыка для работы</div>
+          <button class="btn" id="stopYtBtn" type="button" style="padding: 4px 10px; font-size: 0.78rem; display: none;">Остановить YouTube</button>
+        </div>
+        <div class="audio-row">
+          <button class="audio-btn" data-yt="flZKsZLY51g" type="button">🏢 Спокойная атмосфера (Домашний офис)</button>
+          <button class="audio-btn" data-yt="jfKfPfyJRdk" type="button">📚 Lofi Girl — Beats to Relax/Study</button>
+          <button class="audio-btn" data-yt="4xDzrJKXOOY" type="button">🌆 Synthwave Radio — Focus</button>
+          <button class="audio-btn" data-yt="Dx5qFachd3A" type="button">☕ Relaxing Jazz Piano</button>
+        </div>
+
+        <form class="yt-custom-form" id="ytCustomForm">
+          <input type="text" class="input-field" id="ytCustomInput" placeholder="Или вставьте свою ссылку на видео/эфир YouTube...">
+          <button type="submit" class="btn">Включить</button>
+        </form>
+
+        <div class="yt-player-box" id="ytPlayerBox">
+          <iframe id="ytIframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div class="yt-fallback-bar">
+            <span>Если видео не запускается в локальном файле:</span>
+            <a class="btn" id="ytDirectLink" href="https://www.youtube.com/watch?v=flZKsZLY51g" target="_blank" rel="noopener noreferrer" style="padding: 4px 10px; font-size: 0.78rem;">Открыть на YouTube ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ГРОМКОСТЬ И ТАЙМЕР СНА -->
+      <div class="audio-block audio-lockable">
+        <div class="volume-control">
+          <button class="mute-btn" id="muteBtn" type="button" title="Вкл/выкл звук (M)">🔊</button>
+          <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+          <span class="volume-value" id="volumeValue">40%</span>
+        </div>
+
+        <div class="sleep-row">
+          <div class="sleep-label" id="sleepLabel">⏲ Автоотключение звука: <strong>выкл</strong></div>
+          <div class="sleep-btns" id="sleepBtns">
+            <button class="sleep-btn active" data-sleep="0" type="button">Выкл</button>
+            <button class="sleep-btn" data-sleep="15" type="button">15 мин</button>
+            <button class="sleep-btn" data-sleep="30" type="button">30 мин</button>
+            <button class="sleep-btn" data-sleep="60" type="button">60 мин</button>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="audio-group">
-      <div class="audio-group-header">
-        <div class="audio-group-title">🎵 Фоновая музыка</div>
+  <!-- ВКЛАДКА 3: ЗАМЕТКИ -->
+  <div class="tab-pane" id="tab-notes">
+    <div class="card">
+      <div class="notes-header">
+        <h2>📝 Рабочий черновик</h2>
+        <span class="notes-meta" id="notesMeta">Автосохранение включено • 0 симв.</span>
       </div>
-      <div class="audio-row">
-        <button class="audio-btn" data-music="lofi">☕ Lo-Fi / Chill</button>
-        <button class="audio-btn" data-music="ambient">🌌 Ambient</button>
-        <button class="audio-btn" data-music="focus">🧠 Deep Focus</button>
-      </div>
+      <textarea class="full-notes-area" id="notesArea" placeholder="Сюда удобно скидывать ссылки, тексты, шаблоны ответов и заметки по ходу работы..."></textarea>
     </div>
+  </div>
 
-    <div class="volume-control">
-      <button class="mute-btn" id="muteBtn" type="button" title="Вкл/выкл звук (M)">🔊</button>
-      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
-      <span class="volume-value" id="volumeValue">40%</span>
-    </div>
+  <!-- ВКЛАДКА 4: ИНСТРУМЕНТЫ -->
+  <div class="tab-pane" id="tab-tools">
+    <div class="card tools-grid">
+      
+      <!-- КАЛЬКУЛЯТОР СМЕНЫ -->
+      <div>
+        <div class="tool-title">💰 Калькулятор заработка за день</div>
+        <div class="tool-desc">Автоматически считает доход на основе отработанных минут по таймеру и выполненных задач за сегодня.</div>
+        
+        <div class="calc-row">
+          <label for="rateHour">Ставка за 1 час работы (₽):</label>
+          <input type="number" class="input-field" id="rateHour" min="0" step="10" placeholder="0">
+        </div>
+        <div class="calc-row">
+          <label for="rateTask">Оплата за 1 готовую задачу (₽):</label>
+          <input type="number" class="input-field" id="rateTask" min="0" step="5" placeholder="0">
+        </div>
+        <div class="calc-row">
+          <label for="extraIncome">Доп. доход / бонус вручную (₽):</label>
+          <input type="number" class="input-field" id="extraIncome" min="0" step="10" placeholder="0">
+        </div>
 
-    <div class="sleep-row">
-      <div class="sleep-label" id="sleepLabel">⏲ Автоотключение звука: <strong>выкл</strong></div>
-      <div class="sleep-btns" id="sleepBtns">
-        <button class="sleep-btn active" data-sleep="0" type="button">Выкл</button>
-        <button class="sleep-btn" data-sleep="15" type="button">15 мин</button>
-        <button class="sleep-btn" data-sleep="30" type="button">30 мин</button>
-        <button class="sleep-btn" data-sleep="60" type="button">60 мин</button>
+        <div class="calc-result">
+          <span>Итого за сегодня:</span>
+          <strong id="calcTotal">0 ₽</strong>
+        </div>
       </div>
+
+      <!-- БЫСТРЫЕ ЗАКЛАДКИ -->
+      <div>
+        <div class="tool-title">🔗 Быстрые рабочие ссылки</div>
+        <div class="tool-desc">Сохраняйте нужные сайты и сервисы для открытия в один клик.</div>
+        
+        <div class="bookmarks-list" id="bookmarksList"></div>
+
+        <form class="bookmark-form" id="bookmarkForm">
+          <input type="text" class="input-field" id="bmTitle" placeholder="Название (напр. Почта)" required>
+          <input type="url" class="input-field" id="bmUrl" placeholder="https://..." required>
+          <button type="submit" class="btn btn-primary">+</button>
+        </form>
+      </div>
+
+      <!-- БЭКАП ДАННЫХ -->
+      <div class="backup-bar">
+        <div>
+          <strong style="font-size: 0.9rem;">💾 Резервная копия данных</strong>
+          <div style="font-size: 0.8rem; color: var(--muted);">Сохраните задачи, заметки и закладки в файл или восстановите их.</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn" id="exportDataBtn" type="button">Скачать бэкап</button>
+          <button class="btn" id="importDataBtn" type="button">Загрузить бэкап</button>
+          <input type="file" id="importFileInput" accept=".json" style="display: none;">
+        </div>
+      </div>
+
     </div>
   </div>
 
 </div>
 
 <script>
-  // ===== 1. ТЕМА, АКЦЕНТ, ПОЛНЫЙ ЭКРАН И ЧАСЫ =====
+  // ===== 0. ВСЕ DOM-ЭЛЕМЕНТЫ И ПЕРЕМЕННЫЕ В НАЧАЛЕ (БЕЗ ОШИБОК ИНИЦИАЛИЗАЦИИ) =====
+  const html = document.documentElement;
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
   const themeToggle = document.getElementById('themeToggle');
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   const accentDots = document.querySelectorAll('.accent-dot');
   const clockGreeting = document.getElementById('clockGreeting');
   const clockDate = document.getElementById('clockDate');
   const clockTime = document.getElementById('clockTime');
-  const html = document.documentElement;
-  
+
+  const timerDisplay = document.getElementById('timerDisplay');
+  const timerHeader = document.getElementById('timerHeader');
+  const timerSection = document.getElementById('timerSection');
+  const ringProgress = document.getElementById('ringProgress');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const presetBtns = document.querySelectorAll('.preset-btn');
+  const statsPill = document.getElementById('statsPill');
+
+  const taskForm = document.getElementById('taskForm');
+  const taskInput = document.getElementById('taskInput');
+  const taskDateInput = document.getElementById('taskDate');
+  const taskList = document.getElementById('taskList');
+  const emptyTasks = document.getElementById('emptyTasks');
+  const taskCounter = document.getElementById('taskCounter');
+  const clearDoneBtn = document.getElementById('clearDoneBtn');
+
+  const notesArea = document.getElementById('notesArea');
+  const notesMeta = document.getElementById('notesMeta');
+
+  const audioPanel = document.getElementById('audioPanel');
+  const ambientBtns = document.querySelectorAll('[data-sound]');
+  const musicBtns = document.querySelectorAll('[data-music]');
+  const ytBtns = document.querySelectorAll('[data-yt]');
+  const ytPlayerBox = document.getElementById('ytPlayerBox');
+  const ytIframe = document.getElementById('ytIframe');
+  const ytDirectLink = document.getElementById('ytDirectLink');
+  const stopYtBtn = document.getElementById('stopYtBtn');
+  const ytCustomForm = document.getElementById('ytCustomForm');
+  const ytCustomInput = document.getElementById('ytCustomInput');
+
+  const volumeSlider = document.getElementById('volumeSlider');
+  const volumeValue = document.getElementById('volumeValue');
+  const muteBtn = document.getElementById('muteBtn');
+  const audioStatus = document.getElementById('audioStatus');
+  const audioPlayingBadge = document.getElementById('audioPlayingBadge');
+  const sleepLabel = document.getElementById('sleepLabel');
+  const sleepBtns = document.querySelectorAll('.sleep-btn');
+
+  const rateHour = document.getElementById('rateHour');
+  const rateTask = document.getElementById('rateTask');
+  const extraIncome = document.getElementById('extraIncome');
+  const calcTotal = document.getElementById('calcTotal');
+  const bookmarksList = document.getElementById('bookmarksList');
+  const bookmarkForm = document.getElementById('bookmarkForm');
+  const bmTitle = document.getElementById('bmTitle');
+  const bmUrl = document.getElementById('bmUrl');
+
+  // ===== 1. НАВИГАЦИЯ ПО ВКЛАДКАМ =====
+  function switchTab(tabId) {
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+    tabPanes.forEach(p => p.classList.toggle('active', p.id === `tab-${tabId}`));
+    localStorage.setItem('focus_active_tab', tabId);
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  const savedTab = localStorage.getItem('focus_active_tab');
+  if (savedTab && document.getElementById(`tab-${savedTab}`)) {
+    switchTab(savedTab);
+  }
+
+  // ===== 2. ТЕМА, АКЦЕНТ, ПОЛНЫЙ ЭКРАН И ЧАСЫ =====
   if (localStorage.getItem('theme') === 'light') {
     html.setAttribute('data-theme', 'light');
     themeToggle.textContent = '☀️';
@@ -688,7 +856,6 @@
     localStorage.setItem('theme', isDark ? 'light' : 'dark');
   });
 
-  // Акцентный цвет
   function applyAccent(accent) {
     if (!accent || accent === 'cyan') html.removeAttribute('data-accent');
     else html.setAttribute('data-accent', accent);
@@ -700,7 +867,6 @@
     dot.addEventListener('click', () => applyAccent(dot.dataset.accent));
   });
 
-  // Полноэкранный режим
   fullscreenBtn.addEventListener('click', () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
@@ -712,7 +878,13 @@
     fullscreenBtn.textContent = document.fullscreenElement ? '🗗' : '⛶';
   });
 
-  // Живые часы и приветствие
+  function getTodayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+
+  let lastRenderedDay = getTodayKey();
+
   function updateClock() {
     const now = new Date();
     const h = now.getHours();
@@ -728,21 +900,295 @@
     clockTime.textContent = now.toLocaleTimeString('ru-RU', {
       hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
+
+    const dayKey = getTodayKey();
+    if (dayKey !== lastRenderedDay) {
+      lastRenderedDay = dayKey;
+      renderTasks();
+    }
   }
   updateClock();
   setInterval(updateClock, 1000);
 
-  // ===== 2. ТАЙМЕР И СТАТИСТИКА =====
-  const timerDisplay = document.getElementById('timerDisplay');
-  const timerHeader = document.getElementById('timerHeader');
-  const timerSection = document.getElementById('timerSection');
-  const ringProgress = document.getElementById('ringProgress');
-  const startBtn = document.getElementById('startBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const audioPanel = document.getElementById('audioPanel');
-  const presetBtns = document.querySelectorAll('.preset-btn');
-  const statsPill = document.getElementById('statsPill');
+  // ===== 3. АУДИО (ЭМБИЕНТ + РАДИО + YOUTUBE) =====
+  const ambientUrls = {
+    rain: 'https://actions.google.com/sounds/v1/weather/light_rain.ogg',
+    ocean: 'https://actions.google.com/sounds/v1/water/waves_crashing_on_rock_beach.ogg',
+    wind: 'https://actions.google.com/sounds/v1/weather/light_breeze.ogg',
+    fire: 'https://actions.google.com/sounds/v1/ambiences/fire.ogg'
+  };
 
+  const musicStreams = {
+    lofi: 'https://ice1.somafm.com/groovesalad-128-mp3', 
+    ambient: 'https://ice1.somafm.com/dronezone-128-mp3', 
+    focus: 'https://ice1.somafm.com/deepspaceone-128-mp3',
+    beats: 'https://ice1.somafm.com/beatblender-128-mp3',
+    lush: 'https://ice1.somafm.com/lush-128-mp3',
+    defcon: 'https://ice1.somafm.com/defcon-128-mp3'
+  };
+
+  let savedVol = parseInt(localStorage.getItem('focus_volume'), 10);
+  if (Number.isNaN(savedVol) || savedVol < 0 || savedVol > 100) savedVol = 40;
+  volumeSlider.value = savedVol;
+
+  let masterVolume = savedVol / 100;
+  let isMuted = false;
+  let lastNonZeroVolume = masterVolume > 0 ? masterVolume : 0.4;
+
+  let currentAmbient = null;
+  let currentAmbientBtn = null;
+  let currentMusic = null;
+  let currentMusicBtn = null;
+  let currentYtBtn = null;
+
+  let audioCtx = null;
+  let fallbackGain = null;
+  let activeFallback = null;
+
+  function setStatus(text = '', isError = false, isPlaying = false) {
+    audioStatus.textContent = text;
+    audioStatus.classList.toggle('error', isError);
+    audioPlayingBadge.classList.toggle('visible', isPlaying);
+  }
+
+  function getEffectiveVolume() {
+    return isMuted ? 0 : masterVolume;
+  }
+
+  function applyVolumeUI() {
+    const effectivePct = Math.round(getEffectiveVolume() * 100);
+    volumeSlider.value = effectivePct;
+    volumeValue.textContent = `${effectivePct}%`;
+    muteBtn.textContent = effectivePct === 0 ? '🔇' : '🔊';
+
+    const vol = getEffectiveVolume();
+    if (currentAmbient) currentAmbient.volume = vol;
+    if (currentMusic) currentMusic.volume = vol;
+    if (audioCtx && fallbackGain) {
+      fallbackGain.gain.setTargetAtTime(vol * 0.5, audioCtx.currentTime, 0.02);
+    }
+  }
+
+  applyVolumeUI();
+
+  volumeSlider.addEventListener('input', (e) => {
+    const val = parseInt(e.target.value, 10);
+    masterVolume = val / 100;
+    isMuted = val === 0;
+    if (masterVolume > 0) lastNonZeroVolume = masterVolume;
+    localStorage.setItem('focus_volume', String(val));
+    applyVolumeUI();
+  });
+
+  function toggleMute() {
+    if (isMuted || masterVolume === 0) {
+      isMuted = false;
+      if (masterVolume === 0) masterVolume = lastNonZeroVolume;
+    } else {
+      lastNonZeroVolume = masterVolume;
+      isMuted = true;
+    }
+    applyVolumeUI();
+  }
+
+  muteBtn.addEventListener('click', toggleMute);
+
+  function startFallbackSynth(type) {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!audioCtx) audioCtx = new AudioCtx();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    const len = audioCtx.sampleRate * 8;
+    const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+    const data = buf.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, lastOut = 0;
+    for (let i = 0; i < len; i++) {
+      const w = Math.random() * 2 - 1;
+      b0 = 0.99765 * b0 + w * 0.099046;
+      b1 = 0.96300 * b1 + w * 0.296516;
+      b2 = 0.57000 * b2 + w * 1.052691;
+      const pink = (b0 + b1 + b2 + w * 0.1848) * 0.12;
+      lastOut = (lastOut + 0.02 * w) / 1.02;
+      data[i] = type === 'fire' || type === 'ocean' ? Math.max(-1, Math.min(1, lastOut * 2.8)) : pink;
+    }
+
+    const src = audioCtx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = type === 'rain' ? 1100 : type === 'wind' ? 420 : type === 'ocean' ? 500 : 300;
+
+    fallbackGain = audioCtx.createGain();
+    fallbackGain.gain.setValueAtTime(getEffectiveVolume() * 0.5, audioCtx.currentTime);
+
+    src.connect(filter).connect(fallbackGain).connect(audioCtx.destination);
+    src.start();
+
+    activeFallback = {
+      stop() {
+        try { src.stop(); src.disconnect(); filter.disconnect(); fallbackGain.disconnect(); } catch (e) {}
+        fallbackGain = null;
+      }
+    };
+  }
+
+  function stopAmbient() {
+    if (activeFallback) { activeFallback.stop(); activeFallback = null; }
+    if (currentAmbient) {
+      const old = currentAmbient;
+      currentAmbient = null;
+      old.pause();
+      old.src = '';
+    }
+    if (currentAmbientBtn) {
+      currentAmbientBtn.classList.remove('active');
+      currentAmbientBtn = null;
+    }
+  }
+
+  function stopCurrentMusic() {
+    if (currentMusic) {
+      const old = currentMusic;
+      currentMusic = null;
+      old.pause();
+      old.src = '';
+    }
+    if (currentMusicBtn) {
+      currentMusicBtn.classList.remove('active');
+      currentMusicBtn = null;
+    }
+  }
+
+  function stopYouTube() {
+    ytIframe.src = '';
+    ytPlayerBox.classList.remove('active');
+    stopYtBtn.style.display = 'none';
+    if (currentYtBtn) {
+      currentYtBtn.classList.remove('active');
+      currentYtBtn = null;
+    }
+  }
+
+  function stopAllAudio() {
+    stopAmbient();
+    stopCurrentMusic();
+    stopYouTube();
+    setStatus('', false, false);
+  }
+
+  // Эмбиент
+  ambientBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.sound;
+      const wasActive = btn.classList.contains('active');
+      stopAllAudio();
+      if (wasActive) return;
+
+      const audio = new Audio(ambientUrls[type]);
+      audio.loop = true;
+      audio.volume = getEffectiveVolume();
+
+      currentAmbient = audio;
+      currentAmbientBtn = btn;
+      btn.classList.add('active');
+      setStatus('Загрузка звука...', false, true);
+
+      const fallbackOnce = () => {
+        if (currentAmbient !== audio) return;
+        currentAmbient = null;
+        startFallbackSynth(type);
+        setStatus(`Играет (резерв): ${btn.textContent.trim()}`, false, true);
+      };
+
+      audio.addEventListener('playing', () => {
+        if (currentAmbient === audio) setStatus(`Играет: ${btn.textContent.trim()}`, false, true);
+      });
+      audio.addEventListener('error', fallbackOnce);
+      audio.play().catch(fallbackOnce);
+    });
+  });
+
+  // Радио
+  musicBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.music;
+      const wasActive = btn.classList.contains('active');
+      stopAllAudio();
+      if (wasActive) return;
+
+      const audio = new Audio(musicStreams[type]);
+      audio.volume = getEffectiveVolume();
+      currentMusic = audio;
+      currentMusicBtn = btn;
+      btn.classList.add('active');
+      setStatus('Подключение к потоку...', false, true);
+
+      audio.addEventListener('playing', () => {
+        if (currentMusic === audio) setStatus(`Играет: ${btn.textContent.trim()}`, false, true);
+      });
+      audio.addEventListener('error', () => {
+        if (currentMusic === audio) {
+          stopCurrentMusic();
+          setStatus('Поток недоступен', true, false);
+        }
+      });
+      audio.play().catch(() => {
+        if (currentMusic === audio) {
+          stopCurrentMusic();
+          setStatus('Не удалось запустить поток', true, false);
+        }
+      });
+    });
+  });
+
+  // YouTube
+  function playYouTubeId(videoId, label = 'YouTube Эфир', btnEl = null) {
+    stopAllAudio();
+    if (btnEl) {
+      btnEl.classList.add('active');
+      currentYtBtn = btnEl;
+    }
+    ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
+    ytDirectLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+    ytPlayerBox.classList.add('active');
+    stopYtBtn.style.display = 'inline-block';
+    setStatus(`YouTube: ${label}`, false, true);
+  }
+
+  ytBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wasActive = btn.classList.contains('active');
+      if (wasActive) {
+        stopAllAudio();
+        return;
+      }
+      playYouTubeId(btn.dataset.yt, btn.textContent.trim(), btn);
+    });
+  });
+
+  stopYtBtn.addEventListener('click', stopAllAudio);
+
+  function extractYtId(url) {
+    const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+  }
+
+  ytCustomForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const raw = ytCustomInput.value.trim();
+    const id = extractYtId(raw) || (raw.length === 11 ? raw : null);
+    if (!id) {
+      setStatus('Неверная ссылка YouTube', true, false);
+      return;
+    }
+    playYouTubeId(id, 'Свой поток');
+    ytCustomInput.value = '';
+  });
+
+  // ===== 4. ТАЙМЕР И СТАТИСТИКА =====
   const BREAK_TIME = 5 * 60;
   const CIRCLE_LEN = 2 * Math.PI * 115;
 
@@ -755,12 +1201,6 @@
 
   ringProgress.style.strokeDasharray = CIRCLE_LEN;
 
-  // Статистика дня
-  function getTodayKey() {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  }
-
   function loadStats() {
     const today = getTodayKey();
     try {
@@ -771,9 +1211,27 @@
   }
 
   let stats = loadStats();
+  let tasks = [];
+  try { tasks = JSON.parse(localStorage.getItem('focus_tasks')) || []; } catch (e) { tasks = []; }
+
+  function updateEarnings() {
+    const hRate = parseFloat(rateHour.value) || 0;
+    const tRate = parseFloat(rateTask.value) || 0;
+    const extra = parseFloat(extraIncome.value) || 0;
+
+    localStorage.setItem('calc_rate_hour', rateHour.value);
+    localStorage.setItem('calc_rate_task', rateTask.value);
+    localStorage.setItem('calc_extra', extraIncome.value);
+
+    const doneTasks = tasks.filter(t => t.done).length;
+    const hoursWorked = (stats.minutes || 0) / 60;
+    const total = Math.round(hoursWorked * hRate + doneTasks * tRate + extra);
+    calcTotal.textContent = `${total.toLocaleString('ru-RU')} ₽`;
+  }
 
   function renderStats() {
     statsPill.innerHTML = `🍅 Сессий сегодня: <strong>${stats.sessions}</strong> • <strong>${stats.minutes} мин</strong>`;
+    updateEarnings();
   }
 
   function recordCompletedSession(seconds) {
@@ -787,8 +1245,6 @@
     renderStats();
   }
 
-  renderStats();
-
   function formatTime(seconds) {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
@@ -799,10 +1255,8 @@
 
   function updateTimerUI() {
     if (isTimerless) return;
-    
     timerDisplay.textContent = formatTime(timeLeft);
     document.title = isRunning ? `${timerDisplay.textContent} — Работа` : 'Работа';
-
     const total = isBreak ? BREAK_TIME : selectedWorkTime;
     const offset = CIRCLE_LEN - (timeLeft / total) * CIRCLE_LEN;
     ringProgress.style.strokeDashoffset = offset;
@@ -810,15 +1264,12 @@
 
   function sendNotification(title, body) {
     if ('Notification' in window && Notification.permission === 'granted') {
-      try {
-        new Notification(title, { body });
-      } catch (e) {}
+      try { new Notification(title, { body }); } catch (e) {}
     }
   }
 
   function toggleTimer() {
     if (isTimerless) return;
-    
     isRunning = !isRunning;
     if (isRunning) {
       if ('Notification' in window && Notification.permission === 'default') {
@@ -835,7 +1286,7 @@
           playChime();
           if (!isBreak) {
             recordCompletedSession(selectedWorkTime);
-            sendNotification('Время отдохнуть!', 'Фокус-сессия завершена. Сделай перерыв на 5 минут.');
+            sendNotification('Время отдохнуть!', 'Фокус-сессия завершена. Перерыв 5 минут.');
           } else {
             sendNotification('Перерыв окончен!', 'Пора возвращаться к работе.');
           }
@@ -853,7 +1304,6 @@
 
   function resetTimer() {
     if (isTimerless) return;
-
     clearInterval(timerInterval);
     isRunning = false;
     startBtn.textContent = 'Старт';
@@ -866,18 +1316,15 @@
 
   function switchMode() {
     if (isTimerless) return;
-
     isBreak = !isBreak;
     timeLeft = isBreak ? BREAK_TIME : selectedWorkTime;
-    
+    audioPanel.classList.add('locked');
+    stopAllAudio();
     if (isBreak) {
-      audioPanel.classList.add('locked');
-      stopAllAudio();
       timerHeader.textContent = 'Время отдохнуть';
       timerHeader.className = 'timer-header break';
       timerSection.classList.add('break');
     } else {
-      audioPanel.classList.add('locked');
       timerHeader.textContent = 'Время работать';
       timerHeader.className = 'timer-header focus';
       timerSection.classList.remove('break');
@@ -886,9 +1333,7 @@
   }
 
   function applyPreset(timeVal) {
-    presetBtns.forEach(b => {
-      b.classList.toggle('active', parseInt(b.dataset.time, 10) === timeVal);
-    });
+    presetBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.time, 10) === timeVal));
     localStorage.setItem('focus_preset_v2', String(timeVal));
 
     if (isRunning) {
@@ -924,27 +1369,21 @@
   }
 
   presetBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      applyPreset(parseInt(btn.dataset.time, 10));
-    });
+    btn.addEventListener('click', () => applyPreset(parseInt(btn.dataset.time, 10)));
   });
 
   startBtn.addEventListener('click', toggleTimer);
   resetBtn.addEventListener('click', resetTimer);
 
-  // По умолчанию выбран режим "Без таймера" (0)
   const savedPreset = localStorage.getItem('focus_preset_v2');
   const initialPreset = savedPreset !== null && !Number.isNaN(parseInt(savedPreset, 10))
-    ? parseInt(savedPreset, 10)
-    : 0;
+    ? parseInt(savedPreset, 10) : 0;
   applyPreset(initialPreset);
 
-  // Приятный 2-нотный звуковой сигнал окончания
   function playChime() {
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const notes = [523.25, 783.99]; // C5 -> G5
-      notes.forEach((freq, idx) => {
+      [523.25, 783.99].forEach((freq, idx) => {
         const start = ctx.currentTime + idx * 0.16;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -957,18 +1396,38 @@
         osc.start(start);
         osc.stop(start + 0.95);
       });
-    } catch (e) { console.log('Audio not supported'); }
+    } catch (e) {}
   }
 
-  // ===== 3. ЗАДАЧИ =====
-  const taskForm = document.getElementById('taskForm');
-  const taskInput = document.getElementById('taskInput');
-  const taskList = document.getElementById('taskList');
-  const emptyTasks = document.getElementById('emptyTasks');
-  const taskCounter = document.getElementById('taskCounter');
-  const clearDoneBtn = document.getElementById('clearDoneBtn');
+  // ===== 5. ЗАДАЧИ =====
+  function startOfToday() {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
 
-  let tasks = JSON.parse(localStorage.getItem('focus_tasks')) || [];
+  function dueDate(value) {
+    if (!value) return null;
+    const parts = String(value).split('-').map(Number);
+    if (parts.length !== 3 || parts.some(n => !Number.isFinite(n))) return null;
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+
+  function daysLeft(value) {
+    const due = dueDate(value);
+    return due ? Math.round((due - startOfToday()) / 86400000) : null;
+  }
+
+  function formatDue(value) {
+    const due = dueDate(value);
+    if (!due) return '';
+    const diff = daysLeft(value);
+    if (diff === 0) return 'Сегодня';
+    if (diff === 1) return 'Завтра';
+    if (diff === -1) return 'Вчера';
+    const opts = { day: 'numeric', month: 'short' };
+    if (due.getFullYear() !== new Date().getFullYear()) opts.year = 'numeric';
+    return due.toLocaleDateString('ru-RU', opts);
+  }
 
   function renderTasks() {
     taskList.innerHTML = '';
@@ -992,14 +1451,29 @@
       text.title = 'Двойной клик — редактировать';
       text.ondblclick = () => startEditTask(li, text, task);
 
+      const dateBadge = document.createElement('button');
+      dateBadge.type = 'button';
+      dateBadge.className = 'task-date';
+      const diff = task.due ? daysLeft(task.due) : null;
+      if (task.due) {
+        dateBadge.textContent = formatDue(task.due);
+        if (diff !== null && diff < 0 && !task.done) dateBadge.classList.add('overdue');
+        else if (diff === 0) dateBadge.classList.add('today');
+      } else {
+        dateBadge.textContent = '+ дата';
+      }
+      dateBadge.addEventListener('click', () => startEditDate(li, dateBadge, task));
+
       const del = document.createElement('button');
       del.className = 'task-delete';
       del.innerHTML = '&times;';
       del.onclick = () => deleteTask(task.id);
 
-      li.append(check, text, del);
+      li.append(check, text, dateBadge, del);
       taskList.appendChild(li);
     });
+
+    updateEarnings();
   }
 
   function startEditTask(li, textEl, task) {
@@ -1015,16 +1489,12 @@
     const finish = (save) => {
       if (finished) return;
       finished = true;
-      if (save) {
-        const nextText = input.value.trim();
-        if (nextText) {
-          task.text = nextText;
-          saveTasks();
-        }
+      if (save && input.value.trim()) {
+        task.text = input.value.trim();
+        saveTasks();
       }
       renderTasks();
     };
-
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') finish(true);
       else if (e.key === 'Escape') finish(false);
@@ -1032,14 +1502,41 @@
     input.addEventListener('blur', () => finish(true));
   }
 
+  function startEditDate(li, badge, task) {
+    const input = document.createElement('input');
+    input.type = 'date';
+    input.className = 'task-date-edit';
+    input.value = task.due || '';
+    li.replaceChild(input, badge);
+    input.focus();
+
+    let finished = false;
+    const finish = (save) => {
+      if (finished) return;
+      finished = true;
+      if (save) {
+        if (input.value) task.due = input.value;
+        else delete task.due;
+        saveTasks();
+      }
+      renderTasks();
+    };
+    input.addEventListener('change', () => finish(true));
+    input.addEventListener('blur', () => finish(true));
+  }
+
   function addTask(e) {
     e.preventDefault();
     const text = taskInput.value.trim();
     if (!text) return;
-    tasks.push({ id: Date.now().toString(), text, done: false });
+    const task = { id: Date.now().toString(), text, done: false };
+    if (taskDateInput.value) task.due = taskDateInput.value;
+    tasks.push(task);
     taskInput.value = '';
+    taskDateInput.value = '';
     saveTasks();
     renderTasks();
+    taskInput.focus();
   }
 
   function toggleTask(id) {
@@ -1068,319 +1565,20 @@
   }
 
   taskForm.addEventListener('submit', addTask);
-  renderTasks();
 
-  // Быстрые заметки (черновик)
-  const notesArea = document.getElementById('notesArea');
+  // ===== 6. ЗАМЕТКИ =====
   notesArea.value = localStorage.getItem('focus_notes') || '';
+  function updateNotesMeta() {
+    notesMeta.textContent = `Автосохранение включено • ${notesArea.value.length} симв.`;
+  }
+  updateNotesMeta();
+
   notesArea.addEventListener('input', () => {
     localStorage.setItem('focus_notes', notesArea.value);
+    updateNotesMeta();
   });
 
-  // ===== 4. АУДИО: НАСТОЯЩИЕ ЗАПИСИ С УСИЛЕНИЕМ ГРОМКОСТИ + ОФЛАЙН-ФОЛБЭК =====
-  const ambientUrls = {
-    rain: 'https://actions.google.com/sounds/v1/weather/light_rain.ogg',
-    ocean: 'https://actions.google.com/sounds/v1/water/waves_crashing_on_rock_beach.ogg',
-    wind: 'https://actions.google.com/sounds/v1/weather/light_breeze.ogg',
-    fire: 'https://actions.google.com/sounds/v1/ambiences/fire.ogg'
-  };
-
-  // Усиление громкости для тихих записей (через Web Audio API)
-  const ambientBoost = {
-    rain: 2.8,
-    ocean: 2.2,
-    wind: 3.2,
-    fire: 4.2
-  };
-
-  const ambientBtns = document.querySelectorAll('[data-sound]');
-  const musicBtns = document.querySelectorAll('[data-music]');
-  const volumeSlider = document.getElementById('volumeSlider');
-  const volumeValue = document.getElementById('volumeValue');
-  const muteBtn = document.getElementById('muteBtn');
-  const audioStatus = document.getElementById('audioStatus');
-
-  let savedVol = parseInt(localStorage.getItem('focus_volume'), 10);
-  if (Number.isNaN(savedVol) || savedVol < 0 || savedVol > 100) savedVol = 40;
-  volumeSlider.value = savedVol;
-
-  let masterVolume = savedVol / 100;
-  let isMuted = false;
-  let lastNonZeroVolume = masterVolume > 0 ? masterVolume : 0.4;
-
-  let currentAmbient = null;
-  let currentAmbientBtn = null;
-  let currentAmbientNodes = null;
-  let currentMusic = null;
-  let currentMusicBtn = null;
-
-  let audioCtx = null;
-  let ambientCompressor = null;
-  let ambientMasterGain = null;
-  let activeFallback = null;
-
-  function setStatus(text = '', isError = false) {
-    audioStatus.textContent = text;
-    audioStatus.classList.toggle('error', isError);
-  }
-
-  function getEffectiveVolume() {
-    return isMuted ? 0 : masterVolume;
-  }
-
-  function ensureAmbientAudioGraph() {
-    if (!audioCtx) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioCtx();
-
-      ambientCompressor = audioCtx.createDynamicsCompressor();
-      ambientCompressor.threshold.setValueAtTime(-10, audioCtx.currentTime);
-      ambientCompressor.knee.setValueAtTime(12, audioCtx.currentTime);
-      ambientCompressor.ratio.setValueAtTime(4, audioCtx.currentTime);
-      ambientCompressor.attack.setValueAtTime(0.003, audioCtx.currentTime);
-      ambientCompressor.release.setValueAtTime(0.2, audioCtx.currentTime);
-
-      ambientMasterGain = audioCtx.createGain();
-      ambientMasterGain.gain.setValueAtTime(getEffectiveVolume(), audioCtx.currentTime);
-
-      ambientCompressor.connect(ambientMasterGain);
-      ambientMasterGain.connect(audioCtx.destination);
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    return audioCtx;
-  }
-
-  function applyVolumeUI() {
-    const effectivePct = Math.round(getEffectiveVolume() * 100);
-    volumeSlider.value = effectivePct;
-    volumeValue.textContent = `${effectivePct}%`;
-    muteBtn.textContent = effectivePct === 0 ? '🔇' : '🔊';
-
-    const vol = getEffectiveVolume();
-    if (currentAmbient && !currentAmbientNodes) currentAmbient.volume = vol;
-    if (currentMusic) currentMusic.volume = vol;
-    if (audioCtx && ambientMasterGain) {
-      ambientMasterGain.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.02);
-    }
-  }
-
-  applyVolumeUI();
-
-  volumeSlider.addEventListener('input', (e) => {
-    const val = parseInt(e.target.value, 10);
-    masterVolume = val / 100;
-    isMuted = val === 0;
-    if (masterVolume > 0) lastNonZeroVolume = masterVolume;
-    localStorage.setItem('focus_volume', String(val));
-    applyVolumeUI();
-  });
-
-  function toggleMute() {
-    if (isMuted || masterVolume === 0) {
-      isMuted = false;
-      if (masterVolume === 0) masterVolume = lastNonZeroVolume;
-    } else {
-      lastNonZeroVolume = masterVolume;
-      isMuted = true;
-    }
-    applyVolumeUI();
-  }
-
-  muteBtn.addEventListener('click', toggleMute);
-
-  // Мягкий запасной синтезатор (срабатывает только если нет сети или браузер не читает .ogg)
-  function startFallbackSynth(type) {
-    ensureAmbientAudioGraph();
-
-    const len = audioCtx.sampleRate * 10;
-    const buf = audioCtx.createBuffer(2, len, audioCtx.sampleRate);
-    for (let ch = 0; ch < 2; ch++) {
-      const data = buf.getChannelData(ch);
-      let b0 = 0, b1 = 0, b2 = 0, lastOut = 0;
-      for (let i = 0; i < len; i++) {
-        const w = Math.random() * 2 - 1;
-        b0 = 0.99765 * b0 + w * 0.099046;
-        b1 = 0.96300 * b1 + w * 0.296516;
-        b2 = 0.57000 * b2 + w * 1.052691;
-        const pink = (b0 + b1 + b2 + w * 0.1848) * 0.12;
-        lastOut = (lastOut + 0.02 * w) / 1.02;
-        data[i] = type === 'fire' || type === 'ocean' ? Math.max(-1, Math.min(1, lastOut * 2.8)) : pink;
-      }
-    }
-
-    const src = audioCtx.createBufferSource();
-    src.buffer = buf;
-    src.loop = true;
-
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = type === 'rain' ? 1100 : type === 'wind' ? 420 : type === 'ocean' ? 500 : 300;
-
-    const g = audioCtx.createGain();
-    g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-    g.gain.linearRampToValueAtTime(1.4, audioCtx.currentTime + 0.3);
-
-    src.connect(filter).connect(g).connect(ambientCompressor);
-    src.start();
-
-    activeFallback = {
-      stop() {
-        try {
-          g.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.15);
-          setTimeout(() => {
-            try { src.stop(); src.disconnect(); filter.disconnect(); g.disconnect(); } catch (e) {}
-          }, 170);
-        } catch (e) {}
-      }
-    };
-  }
-
-  function stopAmbient() {
-    if (activeFallback) {
-      activeFallback.stop();
-      activeFallback = null;
-    }
-    if (currentAmbientNodes) {
-      try { currentAmbientNodes.source.disconnect(); } catch (e) {}
-      try { currentAmbientNodes.boostGain.disconnect(); } catch (e) {}
-      currentAmbientNodes = null;
-    }
-    if (currentAmbient) {
-      const old = currentAmbient;
-      currentAmbient = null;
-      old.pause();
-      old.src = '';
-    }
-    if (currentAmbientBtn) {
-      currentAmbientBtn.classList.remove('active');
-      currentAmbientBtn = null;
-    }
-  }
-
-  function stopCurrentMusic() {
-    if (currentMusic) {
-      const old = currentMusic;
-      currentMusic = null;
-      old.pause();
-      old.src = '';
-    }
-    if (currentMusicBtn) {
-      currentMusicBtn.classList.remove('active');
-      currentMusicBtn = null;
-    }
-  }
-
-  function stopAllAudio() {
-    stopAmbient();
-    stopCurrentMusic();
-    setStatus('');
-  }
-
-  // Выбор только ОДНОГО звука (эмбиент — живые записи с усилением)
-  ambientBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const type = btn.dataset.sound;
-      const wasActive = btn.classList.contains('active');
-
-      stopAllAudio();
-      if (wasActive) return;
-
-      const ctx = ensureAmbientAudioGraph();
-      const audio = new Audio();
-      audio.crossOrigin = 'anonymous';
-      audio.src = ambientUrls[type];
-      audio.loop = true;
-      audio.volume = 1;
-
-      try {
-        const source = ctx.createMediaElementSource(audio);
-        const boostGain = ctx.createGain();
-        boostGain.gain.setValueAtTime(ambientBoost[type] || 2.5, ctx.currentTime);
-        source.connect(boostGain).connect(ambientCompressor);
-        currentAmbientNodes = { source, boostGain };
-      } catch (e) {
-        audio.volume = getEffectiveVolume();
-      }
-
-      currentAmbient = audio;
-      currentAmbientBtn = btn;
-      btn.classList.add('active');
-      setStatus('Загрузка звука...');
-
-      const fallbackOnce = () => {
-        if (currentAmbient !== audio) return;
-        if (currentAmbientNodes) {
-          try { currentAmbientNodes.source.disconnect(); } catch (e) {}
-          try { currentAmbientNodes.boostGain.disconnect(); } catch (e) {}
-          currentAmbientNodes = null;
-        }
-        currentAmbient = null;
-        startFallbackSynth(type);
-        setStatus(`Играет (резервный звук): ${btn.textContent.trim()}`);
-      };
-
-      audio.addEventListener('playing', () => {
-        if (currentAmbient !== audio) return;
-        setStatus(`Играет: ${btn.textContent.trim()}`);
-      });
-
-      audio.addEventListener('error', fallbackOnce);
-      audio.play().catch(fallbackOnce);
-    });
-  });
-
-  // ===== 5. ФОНОВАЯ МУЗЫКА (взаимоисключающий выбор с эмбиентом) =====
-  const musicStreams = {
-    lofi: 'https://ice1.somafm.com/groovesalad-128-mp3', 
-    ambient: 'https://ice1.somafm.com/dronezone-128-mp3', 
-    focus: 'https://ice1.somafm.com/deepspaceone-128-mp3'
-  };
-
-  musicBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const type = btn.dataset.music;
-      const wasActive = btn.classList.contains('active');
-
-      stopAllAudio();
-      if (wasActive) return;
-
-      const audio = new Audio(musicStreams[type]);
-      audio.volume = getEffectiveVolume();
-
-      currentMusic = audio;
-      currentMusicBtn = btn;
-      btn.classList.add('active');
-      setStatus('Подключение к потоку...');
-
-      audio.addEventListener('playing', () => {
-        if (currentMusic !== audio) return;
-        setStatus(`Играет: ${btn.textContent.trim()}`);
-      });
-
-      audio.addEventListener('waiting', () => {
-        if (currentMusic !== audio) return;
-        setStatus('Буферизация...');
-      });
-
-      audio.addEventListener('error', () => {
-        if (currentMusic !== audio) return;
-        stopCurrentMusic();
-        setStatus('Поток недоступен — выберите другой звук', true);
-      });
-
-      audio.play().catch(() => {
-        if (currentMusic !== audio) return;
-        stopCurrentMusic();
-        setStatus('Не удалось запустить поток', true);
-      });
-    });
-  });
-
-  // ===== 6. ТАЙМЕР СНА ДЛЯ ЗВУКА + ГОРЯЧИЕ КЛАВИШИ =====
-  const sleepLabel = document.getElementById('sleepLabel');
-  const sleepBtns = document.querySelectorAll('.sleep-btn');
+  // ===== 7. ТАЙМЕР СНА + ГОРЯЧИЕ КЛАВИШИ =====
   let sleepSecondsLeft = 0;
   let sleepInterval = null;
 
@@ -1398,13 +1596,11 @@
     clearInterval(sleepInterval);
     sleepInterval = null;
     sleepBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.sleep, 10) === minutes));
-
     if (minutes <= 0) {
       sleepSecondsLeft = 0;
       updateSleepUI();
       return;
     }
-
     sleepSecondsLeft = minutes * 60;
     updateSleepUI();
     sleepInterval = setInterval(() => {
@@ -1414,22 +1610,19 @@
         sleepInterval = null;
         sleepBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.sleep, 10) === 0));
         stopAllAudio();
-        setStatus('Звук остановлен по таймеру сна');
+        setStatus('Звук остановлен по таймеру сна', false, false);
       }
       updateSleepUI();
     }, 1000);
   }
 
   sleepBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setSleepTimer(parseInt(btn.dataset.sleep, 10));
-    });
+    btn.addEventListener('click', () => setSleepTimer(parseInt(btn.dataset.sleep, 10)));
   });
 
   document.addEventListener('keydown', (e) => {
     const tag = e.target.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-
     if (e.code === 'Space') {
       e.preventDefault();
       if (!isTimerless) toggleTimer();
@@ -1440,6 +1633,102 @@
       e.preventDefault();
       if (!audioPanel.classList.contains('locked')) toggleMute();
     }
+  });
+
+  // ===== 8. ИНСТРУМЕНТЫ (КАЛЬКУЛЯТОР + ЗАКЛАДКИ + БЭКАП) =====
+  rateHour.value = localStorage.getItem('calc_rate_hour') || '';
+  rateTask.value = localStorage.getItem('calc_rate_task') || '';
+  extraIncome.value = localStorage.getItem('calc_extra') || '';
+
+  [rateHour, rateTask, extraIncome].forEach(el => el.addEventListener('input', updateEarnings));
+  renderStats();
+  renderTasks();
+
+  let bookmarks = [];
+  try {
+    bookmarks = JSON.parse(localStorage.getItem('focus_bookmarks')) || [
+      { title: 'Google Переводчик', url: 'https://translate.google.com' },
+      { title: 'Яндекс Диск', url: 'https://disk.yandex.ru' }
+    ];
+  } catch (e) { bookmarks = []; }
+
+  function renderBookmarks() {
+    bookmarksList.innerHTML = '';
+    bookmarks.forEach((bm, idx) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'bookmark-chip';
+
+      const link = document.createElement('a');
+      link.href = bm.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = bm.title;
+      link.style.color = 'inherit';
+      link.style.textDecoration = 'none';
+
+      const del = document.createElement('button');
+      del.className = 'bookmark-del';
+      del.type = 'button';
+      del.innerHTML = '&times;';
+      del.title = 'Удалить';
+      del.onclick = () => {
+        bookmarks.splice(idx, 1);
+        localStorage.setItem('focus_bookmarks', JSON.stringify(bookmarks));
+        renderBookmarks();
+      };
+
+      wrap.append(link, del);
+      bookmarksList.appendChild(wrap);
+    });
+  }
+
+  bookmarkForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = bmTitle.value.trim();
+    let url = bmUrl.value.trim();
+    if (!title || !url) return;
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+    bookmarks.push({ title, url });
+    localStorage.setItem('focus_bookmarks', JSON.stringify(bookmarks));
+    bmTitle.value = '';
+    bmUrl.value = '';
+    renderBookmarks();
+  });
+  renderBookmarks();
+
+  document.getElementById('exportDataBtn').addEventListener('click', () => {
+    const data = {
+      tasks,
+      notes: notesArea.value,
+      bookmarks,
+      stats,
+      exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `work-backup-${getTodayKey()}.json`;
+    a.click();
+  });
+
+  const importFileInput = document.getElementById('importFileInput');
+  document.getElementById('importDataBtn').addEventListener('click', () => importFileInput.click());
+  importFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (Array.isArray(parsed.tasks)) { tasks = parsed.tasks; saveTasks(); renderTasks(); }
+        if (typeof parsed.notes === 'string') { notesArea.value = parsed.notes; localStorage.setItem('focus_notes', parsed.notes); updateNotesMeta(); }
+        if (Array.isArray(parsed.bookmarks)) { bookmarks = parsed.bookmarks; localStorage.setItem('focus_bookmarks', JSON.stringify(bookmarks)); renderBookmarks(); }
+        alert('Данные успешно восстановлены!');
+      } catch (err) {
+        alert('Ошибка чтения файла бэкапа.');
+      }
+    };
+    reader.readAsText(file);
   });
 </script>
 
